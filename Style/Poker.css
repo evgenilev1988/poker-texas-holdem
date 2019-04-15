@@ -1,0 +1,143 @@
+@font-face {
+    font-family: 'casino';
+    src: url('../Fonts/Casino.ttf');
+}
+
+body {
+    background: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 35%, rgba(0, 0, 0, 0.7));
+}
+
+.game-title{
+    font-family: casino;
+    font-size: 70px;
+    margin: auto 31%;
+    padding-top: 50px;
+    color: white;
+}
+
+.initial-card {
+    background: url(../Images/cards.png) no-repeat -896px -843px;
+    width: 147px;
+    height: 195px;
+}
+
+.card-position {
+    display: inline-block;
+    width: 147px;
+    height: 195px;
+}
+
+.hide-button {
+    display: none;
+}
+
+.poker-game {
+    margin: auto;
+    width: 55%;
+    height: 200px;
+}
+
+.poker-game.player {
+    padding-left: 41%;
+    padding-top: 25px;
+    display: flex;
+}
+
+.poker-card {
+    border-style: outset;
+    width: 150px;
+    height: 200px;
+    display: inline-block;
+}
+
+.rotate-card {
+    transform: rotate(270deg) translateX(-12%) translateY(-17%);
+}
+
+.table-cards-area {
+    background-color: #0d9461;
+    height: 210px;
+    padding-top: 10px;
+    left: 50%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #c1ba23;
+    border-radius: 50px;
+    margin-top: 50px;
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.button:hover{
+    cursor: pointer;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #c1ba23;
+}
+
+.button-deal, .button-check {
+    background-color: #0d9461;
+}
+
+.button-redeal {
+    background-color: #8E332E;
+}
+
+#result {
+    position: absolute;
+    z-index: 1000;
+    top: 185px;
+    font-family: 'Open Sans', sans-serif;
+    color: #555;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 150px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 1;
+    text-shadow: #EDEDED 3px 2px 0;
+    animation-name: heartBeatStyle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    margin: auto 28%;
+    float: left;
+}
+
+@keyframes heartBeatStyle {
+    0% {
+        opacity: 1;
+    }
+    14% {
+        opacity: 1;
+    }
+    28% {
+        opacity: 0;
+    }
+    42% {
+        opacity: 0;
+    }
+    70% {
+        opacity: 0;
+    }
+}

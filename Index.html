@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Poker Game</title>
+    <link rel="stylesheet" href="Style/Poker.css">
+</head>
+
+<body>
+    <div class=game-title>Poker - Texas Hold'em</div>
+    <div class="poker-game table-cards-area">
+        <div class="card-position ">
+            <img src="Images/Transparent.png" width="1" height="1" class="initial-card flop" />
+        </div>
+        <div class="card-position ">
+            <img src="Images/Transparent.png" width="1" height="1" class="initial-card flop" />
+        </div>
+        <div class="card-position ">
+            <img src="Images/Transparent.png" width="1" height="1" class="initial-card flop" />
+        </div>
+        <div class="card-position ">
+            <img src="Images/Transparent.png" width="1" height="1" class="initial-card turn" />
+        </div>
+        <div class="card-position ">
+            <img src="Images/Transparent.png" width="1" height="1" class="initial-card river" />
+        </div>
+    </div>
+    <div class="poker-game player">
+        <div class="card-position">
+            <img src="Images/Transparent.png" width="1" height="1" class="backet initial-card" />
+        </div>
+        <div class="card-position">
+            <img src="Images/Transparent.png" width="1" height="1" class="backet initial-card" />
+        </div>
+    </div>
+    <section class="poker-game">
+        <div>
+            <button id="deal-cards" onclick="dealCards()" class="button button-deal">Deal</button>
+            <button id="check-cards" onclick="checkCards()" class="hide-button button button-check">Check</button>
+            <button id="redeal-cards" onclick="RedealCards()" class="hide-button button button-redeal">Re-Deal</button>
+        </div>
+    </section>
+
+    <div id="result"></div>
+
+    <script type="text/javascript" src="js/gameActions.js"></script>
+    <script type="text/javascript" src="js/pre-configured-objects.js"></script>
+    <script type="text/javascript" src="js/cards.js"></script>
+    <script src="js/sctripts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+var preconfigure = {
+    "Moves": [
+        {
+            "Pocket": [
+                "10s",
+                "Js"
+            ]
+        },
+        {
+            "Flop": [
+                "7h",
+                "2d",
+                "Qs"
+            ]
+        },
+        {
+            "Turn": [
+                "Ks"
+            ]
+        },
+        {
+            "River": [
+                "As"
+            ]
+        },
+    ]
+}
