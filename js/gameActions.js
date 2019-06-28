@@ -104,7 +104,7 @@ function checkStraightFlush(PlayingCards) {
                     count = 0;
             }
 
-            
+
         }
     });
     if (straightFlush) 

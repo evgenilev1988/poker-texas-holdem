@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'casino';
-    src: url('../Fonts/Casino.ttf');
+    src: url('../../Fonts/Casino.ttf');
 }
 
 body {
@@ -16,7 +16,7 @@ body {
 }
 
 .initial-card {
-    background: url(../Images/cards.png) no-repeat -896px -843px;
+    background: url(../../Images/cards.png) no-repeat -896px -843px;
     width: 147px;
     height: 195px;
 }
