@@ -1,6 +1,6 @@
 # Poker Texas Hold'em game
 
-A Simple Javascript game
+A Simple Javascript poker game
 
 ## Usage
 
