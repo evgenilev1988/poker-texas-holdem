@@ -2,10 +2,10 @@ var handsPlayed = 0;
 var Play = [];
 var PlayerCards = [];
 var usedCards = [];
-var actionToPerform = CardType.Backet;
+var actionToPerform = gameDefinitions.CardType.Backet;
 
 Array.prototype.mapToCardObjects = function () {
-    return this.map((x, i) => { return { Number: cardNumbers.find(y => y.text == x[0]).number, Suit: x[1], FullCard: x }; })
+    return this.map((x, i) => { return { Number: gameDefinitions.cardNumbers.find(y => y.text == x[0]).number, Suit: x[1], FullCard: x }; })
         .sort((a, b) => (a.Suit > b.Suit) ? 1 : -1)
         .sort((a, b) => (a.Number > b.Number) ? 1 : -1);
 };
@@ -50,24 +50,19 @@ Array.prototype.checkdifference = function () {
     return count >= 4;
 }
 
-function resetGame(){
-    Play = [];
-    usedCards = [];
-    PlayerCards = [];
-    setText("");
-}
+
 
 function setRandomCard(arraySize) {
     var RandomBacket = [];
     for (var i = 0; i < arraySize; i++) {
-        var pickSuit = cardSuits[Math.floor(Math.random() * cardSuits.length)].toString();
-        var pickCardNumber = cardNumbers[Math.floor(Math.random() * cardNumbers.length)].text;
+        var pickSuit = gameDefinitions.cardSuits[Math.floor(Math.random() * cardSuits.length)].toString();
+        var pickCardNumber = gameDefinitions.cardNumbers[Math.floor(Math.random() * gameDefinitions.cardNumbers.length)].text;
         var usedCard = pickCardNumber + pickSuit;
         if (usedCards.length != 0) {
             // Ensuring no duplicates
             while (usedCards.map(x => x == usedCard).filter(x => x== true).length > 0) {
-                pickSuit = cardSuits[Math.floor(Math.random() * cardSuits.length)].toString();
-                pickCardNumber = cardNumbers[Math.floor(Math.random() * cardNumbers.length)].text;
+                pickSuit = gameDefinitions.cardSuits[Math.floor(Math.random() * cardSuits.length)].toString();
+                pickCardNumber = gameDefinitions.cardNumbers[Math.floor(Math.random() * gameDefinitions.cardNumbers.length)].text;
                 usedCard = pickCardNumber + pickSuit;
             }
         }
@@ -94,26 +89,28 @@ function setCardImages(elements, items, nextActionToPerform) {
 
         elements[i].style.display = "inline-block";
         actionToPerform = nextActionToPerform;
-        if (nextActionToPerform != CardType.Flop)
+        if (nextActionToPerform != gameDefinitions.CardType.Flop)
             Play.push(items[i]);
     }
 }
 
-function addRotation() {
-    for (var i = 0; i < document.querySelectorAll('.card-position img').length; i++) {
-        document.querySelectorAll('.card-position img')[i].classList.add('rotated-image');
+var design = {
+    addRotation: function () {
+        for (var i = 0; i < document.querySelectorAll('.card-position img').length; i++) {
+            document.querySelectorAll('.card-position img')[i].classList.add('rotated-image');
+        }
+
+        document.getElementById('redeal-cards').classList.add('rotated-image');
+    },
+    deleteRotation: function () {
+        for (var i = 0; i < document.querySelectorAll('.card-position img').length; i++) {
+            document.querySelectorAll('.card-position img')[i].classList.remove('rotated-image');
+        }
+        document.getElementById('redeal-cards').classList.remove('rotated-image');
+    },
+    setText: function (Text) {
+        document.getElementById('result').innerHTML = Text;
     }
-
-    document.getElementById('redeal-cards').classList.add('rotated-image');
 }
 
-function deleteRotation() {
-    for (var i = 0; i < document.querySelectorAll('.card-position img').length; i++) {
-        document.querySelectorAll('.card-position img')[i].classList.remove('rotated-image');
-    }
-    document.getElementById('redeal-cards').classList.remove('rotated-image');
-}
 
-function setText(Text) {
-    document.getElementById('result').innerHTML = Text;
-}
