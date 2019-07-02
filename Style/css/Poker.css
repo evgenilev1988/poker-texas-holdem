@@ -10,7 +10,9 @@ body {
 .game-title{
     font-family: casino;
     font-size: 70px;
-    margin: auto 31%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding-top: 50px;
     color: white;
 }
@@ -38,9 +40,9 @@ body {
 }
 
 .poker-game.player {
-    padding-left: 41%;
-    padding-top: 25px;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .poker-card {
@@ -122,7 +124,10 @@ body {
     animation-direction: alternate;
     margin: auto 28%;
     float: left;
+    text-align: center;
 }
+
+
 
 @keyframes heartBeatStyle {
     0% {

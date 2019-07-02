@@ -9,7 +9,7 @@ gulp.task('sass', function(){
    return gulp.src('Style/**/*.css')
 	.pipe(sass())
 	.pipe(cssnano())
-	.pipe(gulp.dest('dist/css'))
+	.pipe(gulp.dest('dist/'))
 });
 
 gulp.task('js',function(){
@@ -24,7 +24,7 @@ gulp.task('js',function(){
 
 // Watch task: watch SCSS and JS files for changes
 gulp.task('watch', function(){
-    gulp.watch('Style/*.css', gulp.series('sass'));
+    gulp.watch('Style/**/*.css', gulp.series('sass'));
     gulp.watch('js/*.js', gulp.series('js'));    
 });
 

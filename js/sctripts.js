@@ -4,6 +4,7 @@ var PlayerCards = [];
 var usedCards = [];
 var actionToPerform = gameDefinitions.CardType.Backet;
 
+
 Array.prototype.mapToCardObjects = function () {
     return this.map((x, i) => { return { Number: gameDefinitions.cardNumbers.find(y => y.text == x[0]).number, Suit: x[1], FullCard: x }; })
         .sort((a, b) => (a.Suit > b.Suit) ? 1 : -1)
