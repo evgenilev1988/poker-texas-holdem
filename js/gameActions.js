@@ -103,47 +103,88 @@
     }
 
     var init = {
-        _initAction: function () {
+        _initAction: function (dealCards,checkCards,redealCards) {
             document.getElementById('deal-cards').addEventListener('click', function () {
-                init.dealCards();
+				dealCards();
             });
             document.getElementById('check-cards').addEventListener('click', function () {
-                init.checkCards();
+				checkCards();
             });
             document.getElementById('redeal-cards').addEventListener('click', function () {
-                init.RedealCards();
+				redealCards();
             });
         },
         dealCards: function () {
-            init.resetGame();
-            document.getElementById('deal-cards').classList.add('hide-button');
-            document.getElementById('check-cards').classList.remove('hide-button');
+            init.resetGame();            
+			this.hideButton('deal-cards');
+			this.showButton('check-cards');
             var allbacketCards = document.getElementsByClassName('backet');
-            var backetArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].Backet : setRandomCard(2);
+            var backetArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].Backet : this.setRandomCard(2);
             backetArray.forEach((item) => PlayerCards.push(item));
-            setCardImages(allbacketCards, backetArray, gameDefinitions.CardType.Flop);
+            this.setCardImages(allbacketCards, backetArray, gameDefinitions.CardType.Flop);
         },
-        checkCards: function () {
-            document.getElementById('deal-cards').classList.add('hide-button');
-            document.getElementById('check-cards').classList.remove('hide-button');
+		setRandomCard:function (arraySize) {
+			var RandomBacket = [];
+			for (var i = 0; i < arraySize; i++) {
+				var pickSuit = gameDefinitions.cardSuits[Math.floor(Math.random() * gameDefinitions.cardSuits.length)].toString();
+				var pickCardNumber = gameDefinitions.cardNumbers[Math.floor(Math.random() * gameDefinitions.cardNumbers.length)].text;
+				var usedCard = pickCardNumber + pickSuit;
+				if (usedCards.length != 0) {
+					// Ensuring no duplicates
+					while (usedCards.map(x => x == usedCard).filter(x => x== true).length > 0) {
+						pickSuit = gameDefinitions.cardSuits[Math.floor(Math.random() * gameDefinitions.cardSuits.length)].toString();
+						pickCardNumber = gameDefinitions.cardNumbers[Math.floor(Math.random() * gameDefinitions.cardNumbers.length)].text;
+						usedCard = pickCardNumber + pickSuit;
+					}
+				}
+				RandomBacket.push(usedCard);
+				usedCards.push(usedCard);
+			}
 
+			return RandomBacket;
+		},
+		setCardImages: function (elements, items, nextActionToPerform) {
+			for (var i = 0; i < items.length; i++) {
+				var card = frames.frames.filter(x => x.filename.indexOf(items[i]) == 0)[0];
+				elements[i].style.background = "url('Images/cards.png') no-repeat -" + card.frame.x + "px -" + card.frame.y + "px";
+				elements[i].style.width = card.frame.w + "px";
+				elements[i].style.height = card.frame.h + "px";
+				elements[i].classList.remove('initial-card');
+
+			   if (card.rotated == true) {
+					elements[i].style.width = card.frame.h + "px";
+					elements[i].style.height = card.frame.w + "px";
+					elements[i].classList.add('rotate-card');
+				}
+
+				elements[i].style.display = "inline-block";
+				actionToPerform = nextActionToPerform;
+				if (nextActionToPerform != gameDefinitions.CardType.Flop)
+					Play.push(items[i]);
+			}
+		},
+        checkCards: function () {
+			this.hideButton('deal-cards');
+			this.showButton('check-cards');
+ 
             switch (actionToPerform) {
                 case gameDefinitions.CardType.Flop: {
-                    var flopArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].Flop : setRandomCard(3);
-                    setCardImages(document.getElementsByClassName('flop'), flopArray, gameDefinitions.CardType.Turn);
+                    var flopArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].Flop : this.setRandomCard(3);
+                    this.setCardImages(document.getElementsByClassName('flop'), flopArray, gameDefinitions.CardType.Turn);
                     break;
                 }
                 case gameDefinitions.CardType.Turn: {
-                    var turnArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].Turn : setRandomCard(1);
-                    setCardImages(document.getElementsByClassName('turn'), turnArray, gameDefinitions.CardType.River);
+                    var turnArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].Turn : this.setRandomCard(1);
+                    this.setCardImages(document.getElementsByClassName('turn'), turnArray, gameDefinitions.CardType.River);
                     break;
                 }
                 case gameDefinitions.CardType.River: {
-                    var riverArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].River : setRandomCard(1);
-                    setCardImages(document.getElementsByClassName('river'), riverArray, gameDefinitions.CardType.Restart);
-                    document.getElementById('redeal-cards').classList.remove('hide-button');
-                    document.getElementById('check-cards').classList.add('hide-button');
-                    design.addRotation();
+                    var riverArray = handsPlayed < 4 ? preconfigure.Moves[handsPlayed].River : this.setRandomCard(1);
+                    this.setCardImages(document.getElementsByClassName('river'), riverArray, gameDefinitions.CardType.Restart);
+					this.hideButton('check-cards');
+					this.showButton('redeal-cards');
+					
+					design.addRotation();
                     results.checkResult();
                     break;
                 }
@@ -152,15 +193,22 @@
                 }
             }
         },
+		hideButton:function(id){
+			document.getElementById(id).classList.add('hide-button');			
+		},
+		showButton:function(id){
+			document.getElementById(id).classList.remove('hide-button');
+		},
         RedealCards: function () {
             for (var i = 0; i < document.querySelectorAll('.card-position img').length; i++) {
                 document.querySelectorAll('.card-position img')[i].classList.add('initial-card');
                 document.querySelectorAll('.card-position img')[i].removeAttribute("style");
                 document.querySelectorAll('.card-position img')[i].classList.remove('rotate-card');
             }
-
-            document.getElementById('deal-cards').classList.remove('hide-button');
-            document.getElementById('redeal-cards').classList.add('hide-button');
+            
+			this.showButton('deal-cards');
+			this.hideButton('redeal-cards');
+			
             design.deleteRotation();
             actionToPerform = gameDefinitions.CardType.Backet;
             // Increase hands dealt in order to allow make sure the first four are pre configured
@@ -173,9 +221,12 @@
             usedCards = [];
             PlayerCards = [];
             design.setText("");
-        }
+        },
+		_binds:function(){
+				this._initAction(this.dealCards.bind(this),this.checkCards.bind(this),this.RedealCards.bind(this));
+		}
     };
 
     var results = new results();
-    init._initAction();
+    init._binds();
 })();
